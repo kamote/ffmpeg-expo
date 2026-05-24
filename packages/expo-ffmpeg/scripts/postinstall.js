@@ -11,8 +11,8 @@ const https = require('https');
 const { execSync } = require('child_process');
 
 // Configuration
-const BINARY_VERSION = 'v0.0.3';
-const BASE_URL = `https://github.com/kingjnr4/ffmpeg-expo/releases/download/${BINARY_VERSION}`;
+const BINARY_VERSION = 'v0.1.0';
+const BASE_URL = `https://github.com/kamote/ffmpeg-expo/releases/download/${BINARY_VERSION}`;
 
 const PACKAGE_DIR = path.resolve(__dirname, '..');
 const ANDROID_DIR = path.join(PACKAGE_DIR, 'android', 'jniLibs');

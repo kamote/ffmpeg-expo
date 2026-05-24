@@ -196,8 +196,8 @@ This package is built with commonly used codecs:
 | iOS      | arm64 (device), arm64 + x86_64 (simulator) |
 
 **Minimum Requirements:**
-- Android: API 21 (Android 5.0)
-- iOS: 13.0
+- Android: API 24 (Android 7.0)
+- iOS: 16.4
 
 ## Expo Config Plugin Options
 
@@ -224,7 +224,7 @@ If the postinstall script fails to download binaries, you can manually download 
 node scripts/postinstall.js
 ```
 
-Or download directly from the [GitHub Releases](https://github.com/kingjnr4/ffmpeg-expo/releases) page.
+Or download directly from the [GitHub Releases](https://github.com/kamote/ffmpeg-expo/releases) page.
 
 ### Build errors on Android
 
