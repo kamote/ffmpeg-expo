@@ -15,7 +15,7 @@ interface AndroidPluginProps {
  */
 export const withFFmpegAndroid: ConfigPlugin<AndroidPluginProps> = (
   config,
-  { includeX86 = false, ndkVersion = '26.1.10909125' }
+  { includeX86 = false, ndkVersion = '27.1.12297006' }
 ) => {
   // Modify project-level build.gradle to set NDK version
   config = withProjectBuildGradle(config, (config) => {

@@ -19,7 +19,7 @@ export interface FFmpegPluginProps {
 
   /**
    * Android-specific NDK version
-   * @default "26.1.10909125"
+   * @default "27.1.12297006"
    */
   ndkVersion?: string;
 }
@@ -28,7 +28,7 @@ const withFFmpeg: ConfigPlugin<FFmpegPluginProps | void> = (config, props = {}) 
   const {
     includeX86 = false,
     binaryUrl,
-    ndkVersion = '26.1.10909125',
+    ndkVersion = '27.1.12297006',
   } = props || {};
 
   // Apply Android modifications
