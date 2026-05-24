@@ -13,17 +13,17 @@
   },
   "dependencies": {
     "expo": "~56.0.0",
-    "expo-av": "~15.0.0",
-    "expo-document-picker": "~13.0.0",
+    "expo-video": "~56.0.0",
+    "expo-document-picker": "~56.0.0",
     "ffmpeg-expo": "*",
-    "expo-file-system": "~19.0.0",
-    "expo-image-picker": "~16.0.0",
-    "expo-router": "~5.0.0",
-    "expo-status-bar": "~3.0.0",
+    "expo-file-system": "~56.0.0",
+    "expo-image-picker": "~56.0.0",
+    "expo-router": "~56.0.0",
+    "expo-status-bar": "~56.0.0",
     "react": "19.0.0",
-    "react-native": "0.85.0",
-    "react-native-safe-area-context": "5.4.0",
-    "react-native-screens": "~5.0.0"
+    "react-native": "0.85.3",
+    "react-native-safe-area-context": "5.8.0",
+    "react-native-screens": "~4.25.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",

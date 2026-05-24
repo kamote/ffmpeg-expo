@@ -51,32 +51,40 @@ class FFmpegSession {
         }
         
         // Set up FFmpeg log callback
-        let sessionPtr = Unmanaged.passUnretained(self).toOpaque()
-        FFmpegBridge.setLogCallback(sessionPtr) { ptr, level, message in
-            guard let ptr = ptr, let message = message else { return }
-            let session = Unmanaged<FFmpegSession>.fromOpaque(ptr).takeUnretainedValue()
-            let messageStr = String(cString: message)
-            
-            session.lock.lock()
-            session.outputBuffer.append(messageStr)
-            session.lock.unlock()
-            
-            session.onLog(level, messageStr)
-            
-            // Parse progress from log output
-            if let progress = session.parseProgress(from: messageStr) {
-                session.onProgress(progress)
+        FFmpegBridge.setLogCallback { [weak self] level, message in
+            guard let self = self else { return }
+
+            self.lock.lock()
+            self.outputBuffer.append(message)
+            self.lock.unlock()
+
+            self.onLog(level, message)
+
+            if let progress = self.parseProgress(from: message) {
+                self.onProgress(progress)
             }
         }
-        
+
         defer {
             FFmpegBridge.clearLogCallback()
         }
-        
+
         // Execute FFmpeg command
-        let returnCode = FFmpegBridge.execute(args: args, logLevel: logLevel) { [weak self] in
-            return self?.cancelled ?? true
-        }
+        let returnCode = FFmpegBridge.execute(
+            args: args,
+            logLevel: logLevel,
+            shouldCancel: { [weak self] in
+                return self?.cancelled ?? true
+            },
+            onProgress: { [weak self] time, bitrate, speed, frame, fps, size in
+                guard let self = self else { return }
+                let progress = FFmpegProgress(
+                    time: time, bitrate: bitrate, speed: speed,
+                    frame: Int(frame), fps: fps, size: size
+                )
+                self.onProgress(progress)
+            }
+        )
         
         lock.lock()
         let output = outputBuffer

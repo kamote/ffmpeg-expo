@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
-import { Video, ResizeMode } from 'expo-av';
+import { VideoView, useVideoPlayer } from 'expo-video';
 import { run, execute, getVersion, FFmpegError } from 'ffmpeg-expo';
 import type { FFmpegProgress, FFmpegSession } from 'ffmpeg-expo';
 
@@ -39,6 +39,14 @@ export default function HomeScreen() {
   });
 
   const sessionRef = useRef<FFmpegSession | null>(null);
+
+  const inputPlayer = useVideoPlayer(state.inputUri, (player) => {
+    player.loop = true;
+  });
+
+  const outputPlayer = useVideoPlayer(state.outputUri, (player) => {
+    player.loop = true;
+  });
 
   const addLog = (message: string) => {
     setState((prev) => ({
@@ -255,22 +263,22 @@ export default function HomeScreen() {
           {state.inputUri && (
             <View style={styles.videoContainer}>
               <Text style={styles.label}>Input</Text>
-              <Video
-                source={{ uri: state.inputUri }}
+              <VideoView
+                player={inputPlayer}
                 style={styles.video}
-                useNativeControls
-                resizeMode={ResizeMode.CONTAIN}
+                contentFit="contain"
+                nativeControls
               />
             </View>
           )}
           {state.outputUri && (
             <View style={styles.videoContainer}>
               <Text style={styles.label}>Output</Text>
-              <Video
-                source={{ uri: state.outputUri }}
+              <VideoView
+                player={outputPlayer}
                 style={styles.video}
-                useNativeControls
-                resizeMode={ResizeMode.CONTAIN}
+                contentFit="contain"
+                nativeControls
               />
             </View>
           )}
